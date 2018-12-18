@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: prober
+  labels:
+    app: prober
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: prober
+    spec:
+      containers:
+      - image: cirocosta/prober
+        name: prober
+        ports:
+        - name: prober
+          containerPort: 1313
+          protocol: TCP
+        resources: {}
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: prober
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: prober
+          initialDelaySeconds: 15
+      restartPolicy: Always

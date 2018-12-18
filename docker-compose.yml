@@ -1,0 +1,7 @@
+version: '3'
+services:
+  prober:
+    container_name: prober
+    build:
+      context: .
+    image: cirocosta/prober
